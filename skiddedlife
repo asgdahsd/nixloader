@@ -1,0 +1,59 @@
+
+local Library = loadstring(game:HttpGet("https://raw.githubusercontent.com/xHeptc/Kavo-UI-Library/main/source.lua"))()
+local Window = Library.CreateLib("Prison Life", "Synapse")
+local Tab = Window:NewTab("Main")
+local Functab = Tab:NewSection("Functions")
+local player = Window:NewTab("Character")
+local playersec = player:NewSection("Player")
+
+
+
+Functab:NewDropdown("Give Gun", "gives gun", {"M9", "Remington 870", "AK-47"}, function(v)
+
+local A_1 = game:GetService("Workspace")["Prison_ITEMS"].giver[v].ITEMPICKUP
+local Event = game:GetService("Workspace").Remote.ItemHandler
+Event:InvokeServer(A_1)
+
+end)
+
+
+Functab:NewDropdown("Mod gun", "makes gun op", {"M9", "Remington 870", "AK-47"}, function(v)
+    local module = nil
+    if game:GetService("Players").LocalPlayer.Backpack:FindFirstChild(v) then
+        module = require(game:GetService("Players").LocalPlayer.Backpack[v].GunStates)
+    elseif game:GetService("Players").LocalPlayer.Character[v].GunStates then
+        module = require(game:GetService("Players").LocalPlayer.Character[v].GunStates)
+    end
+    if module ~= nil then
+        module["MaxAmmo"] = math.huge
+        module["CurrentAmmo"] = math.huge
+        module["Damage"] = math.huge
+        module["Range"] = math.huge
+        module["StoredAmmo"] = math.huge
+        module["FireRate"] = 0.000001
+        module["Spread"] = 0
+        module["AutoFire"] = true
+        module["Bullets"] = 10
+        module["ReloadTime"] = 0.000001
+    end
+end)
+    
+
+
+playersec:NewSlider("Walkspeed", "Changes Character Walkspeed", 250, 16, function(walk) 
+    game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = walk
+end)
+
+
+playersec:NewSlider("JumpPower", "changes JumpPower", 350, 50, function(jump) 
+    game.Players.LocalPlayer.Character.Humanoid.JumpPower = jump
+end)
+
+
+
+
+Functab:NewKeybind("CloseUI(P)", "Hides UI", Enum.KeyCodeP, function()
+	Library:ToggleUI()
+end)
+
+
