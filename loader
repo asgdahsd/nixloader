@@ -1,3 +1,0 @@
-if game.PlaceId == 155615604 then
-  loadstring(game:HttpGet("https://raw.githubusercontent.com/asgdahsd/nixloader/main/skiddedlife"))()
-end
